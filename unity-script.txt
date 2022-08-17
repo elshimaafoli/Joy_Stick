@@ -1,0 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO.Ports;
+public class scr : MonoBehaviour
+{
+    // Start is called before the first frame update
+    SerialPort serial = new SerialPort("COM4", 9600);
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!serial.IsOpen)
+        {
+            serial.Open();
+        }
+        int num = 0;
+        if (int.TryParse(serial.ReadLine(), out num))
+        {
+            if (num != 0)
+            {
+                if (num == 1)
+                {
+                    transform.position += new Vector3(1.0f, 0.0f, 0.0f);//right
+                }
+                if (num == 2)
+                {
+                    transform.position += new Vector3(-1.0f, 0.0f, 0.0f);//left
+                }
+                if (num == 3)
+                {
+                    transform.position += new Vector3(0.0f, 1.0f, 0.0f);//up
+                }
+                if (num == 4)
+                {
+                    transform.position += new Vector3(0.0f, -1.0f, 0.0f);//down
+                }
+            }
+
+        }
+    }
+}
